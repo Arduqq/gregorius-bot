@@ -260,7 +260,8 @@ async def on_message(message):
         else:
             birthday.initBirthdays()
             embed=discord.Embed(title="Aktuelle Geburtstage", description='```ml\n'+ birthday.createCalendar() +'\n```', color=0x67c7db)
-            embed.set_thumbnail(url='https://i.imgur.com/ux5wSYb.png')
+            if 'Arduqq' in birthday.getBirthdays():
+                embed.set_thumbnail(url='https://i.imgur.com/8RWMg8f.png')
             embed.add_field(name='🍬 Geburtstagskinder in diesem Monat', value=birthday.getBirthdays(), inline=False)
             await client.send_message(message.channel, embed=embed)
 

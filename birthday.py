@@ -32,7 +32,7 @@ def addBirthday(name, day, month, year):
     global birthdays
     try:
         with open('birthdays','a') as f:
-            f.write(name + ' ' + day + ' ' + month + ' ' + year + '\n')
+            f.write('\n' + name + ' ' + day + ' ' + month + ' ' + year + '\n')
     except FileNotFoundError:
         print("No birtdays file found.")
 
