@@ -2,3 +2,4 @@ config.py
 quotes
 imgurpython
 imgurpython-master
+__pycache__
