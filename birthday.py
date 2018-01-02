@@ -23,6 +23,8 @@ def initBirthdays():
         with open('birthdays') as f:
             lines = f.readlines()
         for line in lines:
+            if not line.strip():
+                continue
             data = line.split()
             birthdays.append((data[0],(int(data[1]),data[2]),int(data[3])))
     except FileNotFoundError:
