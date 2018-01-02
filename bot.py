@@ -6,6 +6,7 @@ import datetime
 import random
 # create config.py with a dictionary of important credentials
 import config
+import birthday
 from imgurpython import ImgurClient
 from imgurpython.helpers.error import ImgurClientError
 
@@ -93,7 +94,6 @@ async def on_message(message):
     
     # !lovecheck
     # Überprüft, ob zwei Namen sich lieben sollten oder nicht
-    
     elif message.content.startswith('!lovecheck'):
         try:
             laufi = ("Laufi", "Daniel", "Laufamholzer", "laufi", "daniel", "laufamholzer", "holzer", "Holzer")
@@ -121,7 +121,6 @@ async def on_message(message):
     
     # !meme
     # Postet ein zufälliges Meme aus Imgur
-    
     elif message.content.startswith('!meme'):
         try:
             memes = imgurclient.memes_subgallery(sort='viral', page=0, window='week')
@@ -131,7 +130,6 @@ async def on_message(message):
     
     # !shibe
     # Postet ein süßes Bild von einem Shiba Inus
-    
     elif message.content.startswith('!shibe'):
         try:
             shibes = imgurclient.subreddit_gallery('shiba', sort='time', window='week', page=0)
@@ -141,7 +139,6 @@ async def on_message(message):
     
     # !choose
     # Wählt ein Element aus einer Auswahl von Elementen aus
-    
     elif message.content.startswith('!choose'):
         try:
             l = message.content.split()[1:]
@@ -159,7 +156,6 @@ async def on_message(message):
     
     # !coinflip
     # Wirft eine Münze
-    
     elif message.content.startswith('!coinflip'):
         try:
             coin = random.randint(1,2)
@@ -179,7 +175,6 @@ async def on_message(message):
     # 
     #     !quote id
     #     Zitiert eine Nachricht aus dem Channel mithilfe der Message-ID
-    
     elif message.content.startswith('!quote'):
         await client.delete_message(message)
         try:
@@ -190,6 +185,7 @@ async def on_message(message):
                     quotes.append(' '.join(quote))
                     save_quotes()
                     em = discord.Embed(title='Zitat gespeichert!', description=' '.join(quote), colour=0xffff00)
+                    em.set_footer(text="!quote add [ZITAT]")
                     await client.send_message(message.channel, embed=em)
                 else:
                     text = '\n'.join(("Korregation!",
@@ -228,19 +224,16 @@ async def on_message(message):
     
     # !dab
     # Lösch dich.
-    
     elif message.content.startswith('!dab'):
         await client.send_message(message.channel, "Lösch dich.", tts=True)
     
     # !help
     # Verlinkung zur Website für alle nötigen Informationen
-    
     elif message.content.startswith('!help'):
         await client.send_message(message.channel, "Alle Informationen zu den Bot-Commands findest du auf: http://gregorius.paperplane.io/")
     
     # !basterds
     # Postet Informationen zum kommenden Filmabend
-    
     elif message.content.startswith('!basterds'):
         embed=discord.Embed(title="Victorurious Basterds", description="🎥 Der Filmabend findet jeden **Sonntag** um **20 Uhr** statt. Jeder bringt einen Film mit und wir würfeln einige Minuten vorher aus welchen davon wir uns anschauen werden, suchen einen passenden Stream heraus und lassen den Sonntag in Liebe ausklingen.", color=0xb14e38)
         embed.set_thumbnail(url="https://vignette.wikia.nocookie.net/clubpenguin/images/8/85/Popcorn.png/revision/latest/scale-to-width-down/363?cb=20161030050058")
@@ -252,4 +245,24 @@ async def on_message(message):
         embed.set_footer(text="#Liebe")
         await client.send_message(message.channel, embed=embed)
 
+    elif message.content.startswith('!birthday'):
+        if message.content.startswith('!birthday add'):
+            await client.delete_message(message)
+            name = message.author.name
+            day = message.content.split()[2]
+            month = message.content.split()[3]
+            year = message.content.split()[4]
+            birthday.addBirthday(name, day, month, year)
+            em = discord.Embed(title='Erfolg!', description='Geburtstag von **' + message.author.name + ' (' + day + '.' + month + '.' + year + ')** hinzugefügt!', colour=0x80f442)
+            em.set_thumbnail(url=message.author.avatar_url)
+            em.set_footer(text="!birthday add TT MM YYYY")
+            await client.send_message(message.channel, embed=em)
+        else:
+            birthday.initBirthdays()
+            embed=discord.Embed(title="Aktuelle Geburtstage", description='```ml\n'+ birthday.createCalendar() +'\n```', color=0x67c7db)
+            embed.set_thumbnail(url='https://i.imgur.com/ux5wSYb.png')
+            embed.add_field(name='🍬 Geburtstagskinder in diesem Monat', value=birthday.getBirthdays(), inline=False)
+            await client.send_message(message.channel, embed=embed)
+
+# client.loop.create_task(check_reminders())
 client.run(config.BOT_CONFIG['discord_token'])
