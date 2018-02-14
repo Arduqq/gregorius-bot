@@ -245,6 +245,8 @@ async def on_message(message):
         embed.set_footer(text="#Liebe")
         await client.send_message(message.channel, embed=embed)
 
+    # !birthday (add)
+    # Zeigt den Kalender für den entsprechenden Monat mit Geburtstagen
     elif message.content.startswith('!birthday'):
         if message.content.startswith('!birthday add'):
             await client.delete_message(message)
@@ -260,10 +262,26 @@ async def on_message(message):
         else:
             birthday.initBirthdays()
             embed=discord.Embed(title="Aktuelle Geburtstage", description='```ml\n'+ birthday.createCalendar() +'\n```', color=0x67c7db)
-            if 'Arduqq' in birthday.getBirthdays():
-                embed.set_thumbnail(url='https://i.imgur.com/8RWMg8f.png')
             embed.add_field(name='🍬 Geburtstagskinder in diesem Monat', value=birthday.getBirthdays(), inline=False)
             await client.send_message(message.channel, embed=embed)
+
+    elif message.content.startswith('!sr'):
+      members = []
+      try:
+        with open('pnp') as f:
+          lines = f.readlines()
+        for line in lines:
+          members.append(line)
+      except FileNotFoundError:
+        print("No birthdays file found.")
+
+      members_str = ''.join(members)
+      em = discord.Embed(title='[SR5] Insinerate: Einschneidende Quinten', description='**Termin: 03.03.2018** in #shadowrun', color=0x841d27)
+      em.add_field(name='🏃‍ Runner', value=members_str, inline=True)
+      em.add_field(name='👑 Spielleiter', value='Arduqq', inline=True)
+      em.set_thumbnail(url='https://static.tumblr.com/640b093f45f7b5b330a371b1b5f15930/jdwgqx8/lVKn7ubmn/tumblr_static_c6bful52magc80wsg0g008csw.png')
+      em.set_footer(text="!sr")
+      await client.send_message(message.channel, embed=em)
 
 # client.loop.create_task(check_reminders())
 client.run(config.BOT_CONFIG['discord_token'])

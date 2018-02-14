@@ -77,3 +77,6 @@ def createCalendar():
     output += '|--------------------|\n'
 
     return output
+
+#initBirthdays()
+#print(createCalendar())
