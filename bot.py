@@ -83,14 +83,18 @@ async def on_ready():
 async def on_message(message):
     if message.content.startswith('!roll'):
         try:
-            first = int(message.content.split()[1])
-            second = int(message.content.split()[2])
-            val = loveCheck(first, second)
-            await client.send_message(message.channel, text)
+          dices = []
+          amount = int(message.content.split()[1])
+          for i in range(1, amount):
+            dices.append(random.randrange(1,6))
+            text = '\n'.join(("**🎲 Wurf:** " + printRoll(dices),
+                              "**:white_check_mark: Erfolge:** " + str(passedRoll(dices)),
+                              "**:x: Misserfolge:** " + str(failedRoll(dices))))
+          await client.send_message(message.channel, text)
         except IndexError:
-            text = '\n'.join(("Ich brauche eine einzige Zahl als Input, Dummkopf.",
-                              "`Usage: !roll [Anzahl der geworfenen D6-Würfel]`"))
-            await client.send_message(message.channel, text)
+          text = '\n'.join(("Ich brauche eine einzige Zahl als Input, Dummkopf.",
+                            "`Usage: !roll [Anzahl der geworfenen D6-Würfel]`"))
+          await client.send_message(message.channel, text)
     
     # !lovecheck
     # Überprüft, ob zwei Namen sich lieben sollten oder nicht
