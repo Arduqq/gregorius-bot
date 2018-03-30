@@ -263,10 +263,13 @@ async def on_message(message):
             em.set_thumbnail(url=message.author.avatar_url)
             em.set_footer(text="!birthday add TT MM YYYY")
             await client.send_message(message.channel, embed=em)
-        else:
+        elif message.content.startswith('!birthday'):
             birthday.initBirthdays()
             embed=discord.Embed(title="Aktuelle Geburtstage", description='```ml\n'+ birthday.createCalendar() +'\n```', color=0x67c7db)
-            embed.add_field(name='🍬 Geburtstagskinder in diesem Monat', value=birthday.getBirthdays(), inline=False)
+            if birthday.getBirthdays():
+              embed.add_field(name='🍬 Geburtstagskinder in diesem Monat', value=birthday.getBirthdays(), inline=False)
+            else:
+              embed.add_field(name='🍬 Geburtstagskinder in diesem Monat', value='Keine Geburtstage in diesem Monat :(', inline=False)
             await client.send_message(message.channel, embed=embed)
 
     elif message.content.startswith('!sr'):

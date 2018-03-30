@@ -78,5 +78,6 @@ def createCalendar():
 
     return output
 
-#initBirthdays()
-#print(createCalendar())
+initBirthdays()
+print(createCalendar())
+print(getBirthdays())
