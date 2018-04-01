@@ -283,12 +283,28 @@ async def on_message(message):
         print("No birthdays file found.")
 
       members_str = ''.join(members)
-      em = discord.Embed(title='[SR5] Insinerate: Einschneidende Quinten', description='**Termin: 03.03.2018** in #shadowrun', color=0x841d27)
+      em = discord.Embed(title='[SR5] Insinerate: Einschneidende Quinten', description='**Termin: 14.04.2018** in #shadowrun', color=0x841d27)
       em.add_field(name='🏃‍ Runner', value=members_str, inline=True)
       em.add_field(name='👑 Spielleiter', value='Arduqq', inline=True)
       em.set_thumbnail(url='https://static.tumblr.com/640b093f45f7b5b330a371b1b5f15930/jdwgqx8/lVKn7ubmn/tumblr_static_c6bful52magc80wsg0g008csw.png')
       em.set_footer(text="!sr")
       await client.send_message(message.channel, embed=em)
+
+    elif message.content.startswith('!movie add'):
+      movie = message.content.split()[2]
+      em = discord.Embed(title='Film erfolgreich erstellt!', description=movie + ' wurde erfolgreich in die Bewertung eingefügt!', color=0xf4d641)
+      em.set_footer(text='Füge deine Bewertung mit !rate ' + movie.replace(' ','').lower() + ' [1-10] hinzu!')
+      await client.send_message(message.channel, embed=em)
+
+    elif message.content.startswith('!rate vertigo'):
+      movie = message.content.split()[1]
+      em = discord.Embed(title='Wertung erfolgreich gespeichert!', description='Die Bewertung für ' + movie + ' wurde aktualisiert.' , color=0xb3f442)
+      em.set_author(name=message.author.nick + " (" + message.author.name + "@" + message.author.discriminator+ ")", icon_url=message.author.avatar_url)
+      em.set_footer(text='(Irgendwann ist hier ein großartiger Link zur Übersicht)')
+      await client.send_message(message.channel, embed=em)
+
+
+    
 
 # client.loop.create_task(check_reminders())
 client.run(config.BOT_CONFIG['discord_token'])
