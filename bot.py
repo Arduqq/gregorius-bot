@@ -133,11 +133,20 @@ async def on_message(message):
             await client.send_message(message.channel, 'Imgur-Client spinnt. :(')
     
     # !shibe
-    # Postet ein süßes Bild von einem Shiba Inus
+    # Postet ein süßes Bild von einem Shiba Inu
     elif message.content.startswith('!shibe'):
         try:
             shibes = imgurclient.subreddit_gallery('shiba', sort='time', window='week', page=0)
             await client.send_message(message.channel, random.choice(shibes).link)
+        except ImgurClientError:
+            await client.send_message(message.channel, 'Imgur-Client spinnt. :(')
+
+    # !puss
+    # Postet ein süßes Bild von einem Shiba Inus
+    elif message.content.startswith('!puss'):
+        try:
+            cats = imgurclient.subreddit_gallery('cats', sort='time', window='week', page=0)
+            await client.send_message(message.channel, random.choice(cats).link)
         except ImgurClientError:
             await client.send_message(message.channel, 'Imgur-Client spinnt. :(')
     
@@ -283,7 +292,7 @@ async def on_message(message):
         print("No birthdays file found.")
 
       members_str = ''.join(members)
-      em = discord.Embed(title='[SR5] Insinerate: Einschneidende Quinten', description='**Termin: 14.04.2018** in #shadowrun', color=0x841d27)
+      em = discord.Embed(title='[SR5] Leviathan: Flügel', description='**Termin: ???** in #shadowrun', color=0x841d27)
       em.add_field(name='🏃‍ Runner', value=members_str, inline=True)
       em.add_field(name='👑 Spielleiter', value='Arduqq', inline=True)
       em.set_thumbnail(url='https://static.tumblr.com/640b093f45f7b5b330a371b1b5f15930/jdwgqx8/lVKn7ubmn/tumblr_static_c6bful52magc80wsg0g008csw.png')
