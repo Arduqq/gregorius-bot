@@ -4,6 +4,7 @@ import discord
 import asyncio
 import datetime
 import random
+import json
 # create config.py with a dictionary of important credentials
 import config
 import birthday
@@ -18,6 +19,7 @@ imgurclient = ImgurClient(imgurclient_id, imgurclient_secret)
 client = discord.Client()
 
 quotes = []
+broken_ribs = {}
 
 def printRoll(dices):
     text = ""
@@ -77,6 +79,9 @@ async def on_ready():
     print('------')
     await client.change_presence(game=discord.Game(name='invictus.cool'))
     check_quotes()
+    global broken_ribs
+    with open('broken_ribs.json') as json_data:
+        broken_ribs = json.load(json_data)
 
 
 @client.event
@@ -111,13 +116,13 @@ async def on_message(message):
                 await client.send_message(message.channel, 'Niemand mag Laufamholzer. Mach dir nichts vor. :pig:')
             elif score >= 75:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :heartpulse:')
-                await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** haben zu **" + str(score) + "%** Sexytime.")
+                await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score))
             elif score in range(25, 74):
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :hearts:')
-                await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** haben zu **" + str(score) + "%** Sexytime.")
+                await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score))
             else:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** ::broken_heart:')
-                await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** haben zu **" + str(score) + "%** Sexytime.")
+                await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score))
         except IndexError:
             text = '\n'.join(("Falscher Input, Dumpfbacke",
                               "`Usage: !loveCheck [Person1] [Person2]`"))
@@ -147,6 +152,13 @@ async def on_message(message):
         try:
             cats = imgurclient.subreddit_gallery('cats', sort='time', window='week', page=0)
             await client.send_message(message.channel, random.choice(cats).link)
+        except ImgurClientError:
+            await client.send_message(message.channel, 'Imgur-Client spinnt. :(')
+
+    elif message.content.startswith('!capybara'):
+        try:
+            baras = imgurclient.subreddit_gallery('capybara', sort='time', window='week', page=0)
+            await client.send_message(message.channel, random.choice(baras).link)
         except ImgurClientError:
             await client.send_message(message.channel, 'Imgur-Client spinnt. :(')
     
@@ -239,6 +251,58 @@ async def on_message(message):
     # Lösch dich.
     elif message.content.startswith('!dab'):
         await client.send_message(message.channel, "Lösch dich.", tts=True)
+
+    elif message.content.startswith('!punch'):
+        try:
+            feels = ['motiviert','energisch','energiegeladen','gewaltig','voller Elan','etwas','plötzlich','dramatisch','theatralisch']
+            actions = ['**{}** haut **{}** eine rein.', 
+                       '**{}** schlägt **{}** ins Gesicht.', 
+                       '**{}** schlägt zu und tut **{}** ein bisschen weh.',
+                       '**{}** konnte an **{}** seine Aggressionen etwas auslassen.',
+                       '**{}** haut **{}** kräftig auf die Nase.',
+                       '**{}** schlägt **{}**.',
+                       '**{}** gibt **{}** einen Schlag in die Magengrube.',
+                       '**{}** hat **{}** satt und kann sich nicht mehr zurückhalten.',
+                       '**{}** ist ein absoluter Neandertaler und haut **{}** eine rein.',
+                       '**{}** MACHEN **{}** AUA!',
+                       '**{}** klärt den Disput mit **{}** mithilfe eines Schlags in die Magengrube.']
+            punched_member = message.mentions[0]
+            laufi = False
+            if (punched_member.name == 'Laufamholzer'):
+                laufi = True
+            await client.send_message(message.channel, '💢 **' + message.author.nick + '** holt ' + random.choice(feels) + ' aus ...')
+
+            if laufi == False:
+                score_punched = random.randint(1,10)
+            else:
+                score_punched = 1
+
+            score_puncher = random.randint(1,10)
+            await asyncio.sleep(3)
+            if (score_punched >= score_puncher):
+                await client.send_message(message.channel, '💨 Und verfehlt miserabel.')
+            else:
+                await client.send_message(message.channel, '🥊' + random.choice(actions).format(message.author.display_name,punched_member.display_name))
+                power = random.randint(1,1000)
+                if (power > 700):
+                    await client.send_message(message.channel, '🔨 ***' + punched_member.display_name + '** bricht sich eine Rippe!* Yay!')
+                    if punched_member.id not in broken_ribs:
+                        broken_ribs[punched_member.id] = 1
+                        await client.send_message(message.channel, '🚑 ' + 
+                            punched_member.display_name + ' hat nun offiziell seine **erste** gebrochene Rippe! <3')
+
+                    else:
+                        broken_ribs[punched_member.id] += 1
+                        await client.send_message(message.channel, '🚑 ' + punched_member.display_name + ' hat nun offiziell **' + str(broken_ribs[punched_member.id]) + '** gebrochene Rippen!')
+                    with open('broken_ribs.json', 'w') as outfile:
+                        json.dump(broken_ribs, outfile, ensure_ascii=False)
+
+        except IndexError:
+            text = '\n'.join((message.author.display_name + " schlägt in die Luft",
+                              "`Usage: !punch @mention"))
+            await client.send_message(message.channel, text)
+
+        
     
     # !help
     # Verlinkung zur Website für alle nötigen Informationen
@@ -289,7 +353,7 @@ async def on_message(message):
         for line in lines:
           members.append(line)
       except FileNotFoundError:
-        print("No birthdays file found.")
+        print("No pnp file found.")
 
       members_str = ''.join(members)
       em = discord.Embed(title='[SR5] Leviathan: Flügel', description='**Termin: ???** in #shadowrun', color=0x841d27)
