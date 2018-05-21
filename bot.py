@@ -270,7 +270,7 @@ async def on_message(message):
             laufi = False
             if (punched_member.name == 'Laufamholzer'):
                 laufi = True
-            await client.send_message(message.channel, '💢 **' + message.author.nick + '** holt ' + random.choice(feels) + ' aus ...')
+            await client.send_message(message.channel, '💢 **' + message.author.display_name + '** holt ' + random.choice(feels) + ' aus ...')
 
             if laufi == False:
                 score_punched = random.randint(1,10)
