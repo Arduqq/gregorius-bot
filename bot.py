@@ -79,9 +79,11 @@ async def on_ready():
     print('------')
     await client.change_presence(game=discord.Game(name='invictus.cool'))
     check_quotes()
+    print('Fetched all of the quotes')
     global broken_ribs
     with open('broken_ribs.json') as json_data:
         broken_ribs = json.load(json_data)
+    print('Opened broken_ribs.json')
 
 
 @client.event
@@ -116,13 +118,13 @@ async def on_message(message):
                 await client.send_message(message.channel, 'Niemand mag Laufamholzer. Mach dir nichts vor. :pig:')
             elif score >= 75:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :heartpulse:')
-                await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score))
+                await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score) +"\%**!")
             elif score in range(25, 74):
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :hearts:')
-                await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score))
+                await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score) +"\%**!")
             else:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** ::broken_heart:')
-                await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score))
+                await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score) +"\%**!")
         except IndexError:
             text = '\n'.join(("Falscher Input, Dumpfbacke",
                               "`Usage: !loveCheck [Person1] [Person2]`"))
@@ -147,7 +149,7 @@ async def on_message(message):
             await client.send_message(message.channel, 'Imgur-Client spinnt. :(')
 
     # !puss
-    # Postet ein süßes Bild von einem Shiba Inus
+    # Postet ein süßes Bild von einem Kätzchen
     elif message.content.startswith('!puss'):
         try:
             cats = imgurclient.subreddit_gallery('cats', sort='time', window='week', page=0)
@@ -258,7 +260,7 @@ async def on_message(message):
             actions = ['**{}** haut **{}** eine rein.', 
                        '**{}** schlägt **{}** ins Gesicht.', 
                        '**{}** schlägt zu und tut **{}** ein bisschen weh.',
-                       '**{}** konnte an **{}** seine Aggressionen etwas auslassen.',
+                       '**{}** konnte an **{}** einige Aggressionen auslassen.',
                        '**{}** haut **{}** kräftig auf die Nase.',
                        '**{}** schlägt **{}**.',
                        '**{}** gibt **{}** einen Schlag in die Magengrube.',
@@ -275,7 +277,7 @@ async def on_message(message):
             if laufi == False:
                 score_punched = random.randint(1,10)
             else:
-                score_punched = 1
+                score_punched = 0
 
             score_puncher = random.randint(1,10)
             await asyncio.sleep(3)
@@ -289,7 +291,7 @@ async def on_message(message):
                     if punched_member.id not in broken_ribs:
                         broken_ribs[punched_member.id] = 1
                         await client.send_message(message.channel, '🚑 ' + 
-                            punched_member.display_name + ' hat nun offiziell seine **erste** gebrochene Rippe! <3')
+                            punched_member.display_name + ' hat nun offiziell die **erste** gebrochene Rippe! <3')
 
                     else:
                         broken_ribs[punched_member.id] += 1
