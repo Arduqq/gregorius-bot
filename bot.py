@@ -309,7 +309,7 @@ async def on_message(message):
     # !help
     # Verlinkung zur Website für alle nötigen Informationen
     elif message.content.startswith('!help'):
-        await client.send_message(message.channel, "Alle Informationen zu den Bot-Commands findest du auf: http://gregorius.paperplane.io/")
+        await client.send_message(message.channel, "Alle Informationen zu den Bot-Commands findest du auf: http://invictus.cool/gregor")
     
     # !basterds
     # Postet Informationen zum kommenden Filmabend
