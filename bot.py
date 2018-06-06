@@ -117,21 +117,22 @@ async def on_message(message):
             await asyncio.sleep(3)
             if prince in laufi or princess in laufi:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :heartpulse:')
+
                 await client.send_message(message.channel, 'Jeder mag Laufamholzer. 100% :heart:')
             elif prince in dice or princess in dice:
-		          if prince in lao or princess in dice:
-			        await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
+		            if prince in lao or princess in dice:
+			              await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
                     await client.send_message(message.channel, '**Heiratet endlich, danke!** *xoxo invictus*')
-		          else:
-			        await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :poop: ')
+		            else:
+			              await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :poop: ')
                     await client.send_message(message.channel, '**Finger weg von meinem Stecher, du miese Snitch** *-Lao*')
             elif prince in lao or princess in lao:
-		          if prince in dice or prince in lao:
-			        await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
+		            if prince in dice or prince in lao:
+			              await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
                     await client.send_message(message.channel, '**Heiratet endlich, danke!** *xoxo invictus*')
-		          else:
-		            await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :poop: ')
-                    await client.send_message(message.channel, '**Finger weg von meiner Alten, du miese Snitch** *-Dice*')       
+		            else:
+		                await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :poop: ')
+                    await client.send_message(message.channel, '**Finger weg von meiner Alten, du miese Snitch** *-Dice*')
             elif score >= 75:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :heartpulse:')
                 await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score) +"\%**!")
