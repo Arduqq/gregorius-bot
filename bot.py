@@ -157,7 +157,7 @@ async def on_message(message):
     # Postet ein Todd Howard Meme aus Imgur
     elif message.content.startswith('!paragon'):
         try:
-            paragon = imgurclient.memes_subgallery(sort='todd howard', page=0, window='week')
+            paragon = imgurclient.memes_subgallery('todd howard', sort='viral', page=0, window='week')
             await client.send_message(message.channel, random.choice(paragon).link)
         except ImgurClientError:
             await client.send_message(message.channel, 'Imgur-Client spinnt. :(')
