@@ -107,9 +107,9 @@ async def on_message(message):
     # ÃœberprÃ¼ft, ob zwei Namen sich lieben sollten oder nicht
     elif message.content.startswith('!lovecheck'):
         try:
-            lao = ("lao", "laomedeia", "laomedeiaTRX", "sonja", "mond", "münchnerin", "alte")
-	    dice = ("dice", "nicedice", "nicedice90", "christian", "chris", "chrissy", "kleiner")
-	    laufi = ("Laufi", "Daniel", "Laufamholzer", "laufi", "daniel", "laufamholzer", "holzer", "Holzer")
+            lao = ("lao", "laomedeia", "laomedeiaTRX", "sonja", "mond", "mÃ¼nchnerin", "alte")
+            dice = ("dice", "nicedice", "nicedice90", "christian", "chris", "chrissy", "kleiner")
+            laufi = ("Laufi", "Daniel", "Laufamholzer", "laufi", "daniel", "laufamholzer", "holzer", "Holzer")
             princess = message.content.split()[1]
             prince = message.content.split()[2]
             tmp = await client.send_message(message.channel, '**Analysiere Personen auf potenzielle Korpulationschancen:** :black_heart:')
@@ -118,18 +118,18 @@ async def on_message(message):
             if prince in laufi or princess in laufi:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :heartpulse:')
                 await client.send_message(message.channel, 'Jeder mag Laufamholzer. 100% :blobheart:')
-	    if prince in lao and princess in dice:
-                await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
+            if prince in lao and princess in dice:
+                await client.edit_message(tmp, '**Keine Analyse nÃ¶tig:** :heartpulse:')
                 await client.send_message(message.channel, 'Heiratet endlich, danke! **xoxo invictus**')
-   	    if prince in dice and princess in lao:
-                await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
+            if prince in dice and princess in lao:
+                await client.edit_message(tmp, '**Keine Analyse nÃ¶tig:** :heartpulse:')
                 await client.send_message(message.channel, 'Heiratet endlich, danke! **xoxo invictus**')
-	    if prince in dice or princess in dice:
+            if prince in dice or princess in dice:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :dice: ')
-                await client.send_message(message.channel, 'Finger weg von meinem Stecher, du perverses Stück **-Lao**')
-	    if prince in lao or princess in lao:
+                await client.send_message(message.channel, 'Finger weg von meinem Stecher, du perverses StÃ¼ck **-Lao**')
+            if prince in lao or princess in lao:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :new_moon_with_face: ')
-                await client.send_message(message.channel, 'Finger weg von meiner Alten, du perverses Stück **-Dice**')
+                await client.send_message(message.channel, 'Finger weg von meiner Alten, du perverses StÃ¼ck **-Dice**')
             elif score >= 75:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :heartpulse:')
                 await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score) +"\%**!")
@@ -180,7 +180,7 @@ async def on_message(message):
         except ImgurClientError:
             await client.send_message(message.channel, 'Imgur-Client spinnt. :(')
     # !capybara
-    # Postet ein süßes Bild von einem Capybara
+    # Postet ein sÃ¼ÃŸs Bild von einem Capybara
     elif message.content.startswith('!capybara'):
         try:
             baras = imgurclient.subreddit_gallery('capybara', sort='time', window='week', page=0)
