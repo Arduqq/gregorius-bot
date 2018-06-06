@@ -126,10 +126,10 @@ async def on_message(message):
                 await client.send_message(message.channel, 'Heiratet endlich, danke! **xoxo invictus**')
             if prince in dice or princess in dice:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :dice: ')
-                await client.send_message(message.channel, 'Finger weg von meinem Stecher, du perverses Stück **-Lao**')
+                await client.send_message(message.channel, 'Finger weg von meinem Stecher, du miese Snitch **-Lao**')
             if prince in lao or princess in lao:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :new_moon_with_face: ')
-                await client.send_message(message.channel, 'Finger weg von meiner Alten, du perverses Stück **-Dice**')
+                await client.send_message(message.channel, 'Finger weg von meiner Alten, du miese Snitch **-Dice**')
             elif score >= 75:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :heartpulse:')
                 await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score) +"\%**!")
