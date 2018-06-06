@@ -107,8 +107,8 @@ async def on_message(message):
     # Überprüft, ob zwei Namen sich lieben sollten oder nicht
     elif message.content.startswith('!lovecheck'):
         try:
-            lao = ("lao", "laomedeia", "laomedeiaTRX", "sonja", "mond", "münchnerin", "alte")
-            dice = ("dice", "nicedice", "nicedice90", "christian", "chris", "chrissy", "kleiner")
+            lao = ("lao", "laomedeia", "laomedeiaTRX", "sonja", "mond", "münchnerin", "alte", "moon")
+            dice = ("dice", "nicedice", "nicedice90", "christian", "chris", "chrissy", "kleiner", "würfel")
             laufi = ("Laufi", "Daniel", "Laufamholzer", "laufi", "daniel", "laufamholzer", "holzer", "Holzer")
             princess = message.content.split()[1]
             prince = message.content.split()[2]
@@ -117,19 +117,22 @@ async def on_message(message):
             await asyncio.sleep(3)
             if prince in laufi or princess in laufi:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :heartpulse:')
-                await client.send_message(message.channel, 'Jeder mag Laufamholzer. 100% :blobheart:')
-            if prince in lao and princess in dice:
-                await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
-                await client.send_message(message.channel, 'Heiratet endlich, danke! **xoxo invictus**')
-            if prince in dice and princess in lao:
-                await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
-                await client.send_message(message.channel, 'Heiratet endlich, danke! **xoxo invictus**')
-            if prince in dice or princess in dice:
-                await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :dice: ')
-                await client.send_message(message.channel, 'Finger weg von meinem Stecher, du miese Snitch **-Lao**')
-            if prince in lao or princess in lao:
-                await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :new_moon_with_face: ')
-                await client.send_message(message.channel, 'Finger weg von meiner Alten, du miese Snitch **-Dice**')
+
+                await client.send_message(message.channel, 'Jeder mag Laufamholzer. 100% :heart:')
+            elif prince in dice or princess in dice:
+		            if prince in lao or princess in dice:
+			              await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
+                    await client.send_message(message.channel, '**Heiratet endlich, danke!** *xoxo invictus*')
+		            else:
+			              await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :poop: ')
+                    await client.send_message(message.channel, '**Finger weg von meinem Stecher, du miese Snitch** *-Lao*')
+            elif prince in lao or princess in lao:
+		            if prince in dice or prince in lao:
+			              await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
+                    await client.send_message(message.channel, '**Heiratet endlich, danke!** *xoxo invictus*')
+		            else:
+		                await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :poop: ')
+                    await client.send_message(message.channel, '**Finger weg von meiner Alten, du miese Snitch** *-Dice*')
             elif score >= 75:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :heartpulse:')
                 await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score) +"\%**!")
@@ -157,7 +160,7 @@ async def on_message(message):
     # Postet ein Todd Howard Meme aus Imgur
     elif message.content.startswith('!paragon'):
         try:
-            paragon = imgurclient.memes_subgallery('todd howard', sort='viral', page=0, window='week')
+            paragon = imgurclient.subreddit_gallery('gayfortodd', sort='time', window='week', page=0)
             await client.send_message(message.channel, random.choice(paragon).link)
         except ImgurClientError:
             await client.send_message(message.channel, 'Imgur-Client spinnt. :(')
@@ -191,7 +194,7 @@ async def on_message(message):
     # Postet ein Bild von einem russischen Juden
     elif message.content.startswith('!jews'):
         try:
-            jews = imgurclient.subreddit_gallery('ducks', sort='time', window='week', page=0)
+            jews = imgurclient.gallery_tag('ducklings', sort='viral', page=0, window='week')
             await client.send_message(message.channel, random.choice(jews).link)
         except ImgurClientError:
             await client.send_message(message.channel, 'Imgur-Client spinnt. :(')
@@ -200,7 +203,7 @@ async def on_message(message):
     # Postet ein Bild von einem lustigen Flugzeugabsturz
     elif message.content.startswith('!funnyairplanecrash'):
         try:
-            funnyairplanecrash = imgurclient.subreddit_gallery('funny airplane crash', sort='time', window='week', page=0)
+            funnyairplanecrash = imgurclient.subreddit_gallery('funnyairplanecrash', sort='time', window='week', page=0)
             await client.send_message(message.channel, random.choice(funnyairplanecrash).link)
         except ImgurClientError:
             await client.send_message(message.channel, 'Imgur-Client spinnt. :(')
