@@ -116,24 +116,22 @@ async def on_message(message):
             score = lovecheck(prince,princess)
             await asyncio.sleep(3)
             if prince in laufi or princess in laufi:
-                await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :heartpulse:')
-
-                await client.send_message(message.channel, 'Jeder mag Laufamholzer. 100% :heart:')
-            elif prince in dice or princess in dice:
-		            if prince in lao or princess in dice:
-			              await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
-                    await client.send_message(message.channel, '**Heiratet endlich, danke!** *xoxo invictus*')
-		            else:
-			              await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :poop: ')
-                    await client.send_message(message.channel, '**Finger weg von meinem Stecher, du miese Snitch** *-Lao*')
-            elif prince in lao or princess in lao:
-		            if prince in dice or prince in lao:
-			              await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
-                    await client.send_message(message.channel, '**Heiratet endlich, danke!** *xoxo invictus*')
-		            else:
-		                await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :poop: ')
-                    await client.send_message(message.channel, '**Finger weg von meiner Alten, du miese Snitch** *-Dice*')
-            elif score >= 75:
+                await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :pig:')
+                await client.send_message(message.channel, 'Niemand mag Laufamholzer. Mach dir nichts vor.')
+                return
+            if (prince in dice and princess in lao) or (prince in lao and princess in dice):
+                await client.edit_message(tmp, '**Keine Analyse nötig:** :heartpulse:')
+                await client.send_message(message.channel, '**Heiratet endlich, danke!** *xoxo invictus*')
+                return
+            if (prince in lao or princess in lao) and (prince not in dice or princess not in dice):
+                await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :poop: ')
+                await client.send_message(message.channel, '**Finger weg von meinem Stecher, du miese Snitch** *-Dice*')
+                return
+            if (prince not in lao or princess not in lao) and (prince in dice or princess in dice):
+                await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :poop: ')
+                await client.send_message(message.channel, '**Finger weg von meinem Stecher, du miese Snitch** *-Lao*')
+                return
+            if score >= 75:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :heartpulse:')
                 await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score) +"\%**!")
             elif score in range(25, 74):
