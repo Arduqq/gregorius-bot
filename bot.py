@@ -127,7 +127,7 @@ async def on_message(message):
                 await client.send_message(message.channel, '**Finger weg von meinem Stecher, du miese Snitch** *-Lao*')
             elif prince in lao or princess in lao:
                 await client.send_message(message.channel, '**Finger weg von meiner Alten, du miese Snitch** *-Dice*')            
-            if score >= 75:
+            elif score >= 75:
                 await client.edit_message(tmp, '**Analysiere Personen auf potenzielle Korpulationschancen:** :heartpulse:')
                 await client.send_message(message.channel, "**" + prince +"** und **" + princess + "** connecten zu **" + str(score) +"\%**!")
             elif score in range(25, 74):
