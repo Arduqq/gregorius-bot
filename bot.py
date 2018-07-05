@@ -316,7 +316,7 @@ async def on_message(message):
             if laufi == False:
                 score_punched = random.randint(1,10)
             else:
-                score_punched = random.randint(5,10)
+                score_punched = 1
 
             score_puncher = random.randint(1,10)
             await asyncio.sleep(3)
