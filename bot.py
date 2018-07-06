@@ -313,6 +313,13 @@ async def on_message(message):
                 laufi = True
             await client.send_message(message.channel, '💢 **' + message.author.display_name + '** holt ' + random.choice(feels) + ' aus ...')
 
+            # Autoaggression ist keine Lösung
+            if (punched_member.name == message.author.display_name):
+                # Außer bei Laufi
+                if (laufi == False):
+                    await client.send_message(message.channel, 'Autoaggression ist keine Lösung! Alle Invicutsmitglieder nehmen ' + punched_member.name + " in den Arm. :heartpulse:")
+                    return
+                
             if laufi == False:
                 score_punched = random.randint(1,10)
             else:
